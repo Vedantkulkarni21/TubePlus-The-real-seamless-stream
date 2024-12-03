@@ -5,8 +5,10 @@ exports.uploadVideo = async (req,res)=>{
     try{
         const { title, description, videoLink, videoType,thumbnail }  = req.body;
         
-         // please watch the video for the code
-
+         //done
+        
+        const videoUpload = new Video({ user: req.user._id, title, description, videoLink, videoType, thumbnail });
+        await videoUpload.save();
         res.status(201).json({ sucess: "true", videoUpload });
 
 
@@ -19,7 +21,7 @@ exports.uploadVideo = async (req,res)=>{
 exports.getAllVideo = async(req,res)=>{
     try{
         const videos = await Video.find().populate('user','channelName profilePic userName createdAt');
-         // please watch the video for the code
+         //done
         res.status(201).json({ sucess: "true", "videos": videos });
     }catch (error){
         res.status(500).json({ error: 'Server error' });
@@ -29,8 +31,8 @@ exports.getAllVideo = async(req,res)=>{
 exports.getVideoById = async (req,res)=>{
     try{
         let {id} = req.params;
-         // please watch the video for the code
-
+         // done
+        const video = await Video.findById(id).populate('user','channelName profilePic userName createdAt');
         res.status(201).json({ sucess: "true", "video": video });
     }catch (error){
         res.status(500).json({ error: 'Server error' });

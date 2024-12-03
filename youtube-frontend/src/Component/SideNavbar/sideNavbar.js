@@ -15,20 +15,14 @@ const SideNavbar = ({sideNavbar}) => {
     return (
         <div className={sideNavbar?"home-sideNavbar":"homeSideNavbarHide"}>
             <div className="home_sideNavbarTop">
-                <div className={`home_sideNavbarTopOption`} >
+                <a href="/" className={`home_sideNavbarTopOption hs`} >
                     <HomeIcon />
                     <div className="home_sideNavbarTopOptionTitle" >Home</div>
-                </div>
-
-                <div className={`home_sideNavbarTopOption`} >
-                    <VideocamIcon />
-                    <div className="home_sideNavbarTopOptionTitle" >Shorts</div>
-                </div>
-
-                <div className={`home_sideNavbarTopOption`} >
+                </a>
+                <a href="http://127.0.0.1:3002/"  target="_blank" rel="noopener noreferrer" className={`home_sideNavbarTopOption hs`} >
                     <SubscriptionsIcon />
-                    <div className="home_sideNavbarTopOptionTitle" >Subscription</div>
-                </div>
+                    <div className="home_sideNavbarTopOptionTitle" >Socials?</div>
+                </a>
             </div>
 
             <div className="home_sideNavbarMiddle">
@@ -38,8 +32,15 @@ const SideNavbar = ({sideNavbar}) => {
 
                 </div>
 
-                {/* Please watch the video for the code} */}
-
+                {/*  */}
+                <div className={`home_sideNavbarTopOption`} >
+                    <RecentActorsIcon/>
+                    <div className="home_sideNavbarTopOptionTitle" >Your channel</div>
+                </div>
+                <div className={`home_sideNavbarTopOption`} >
+                    <HistoryIcon/>
+                    <div className="home_sideNavbarTopOptionTitle" >History</div>
+                </div>
                 <div className={`home_sideNavbarTopOption`} >
                     <PlaylistAddIcon />
                     <div className="home_sideNavbarTopOptionTitle" >Playlist</div>
@@ -53,10 +54,10 @@ const SideNavbar = ({sideNavbar}) => {
                     <WatchLaterOutlinedIcon />
                     <div className="home_sideNavbarTopOptionTitle">Watch later</div>
                 </div>
-
-                {/* Please watch the video for the code} */}
-
-                
+                <div className={`home_sideNavbarTopOption`} >
+                    < ThumbUpAltOutlinedIcon/>
+                    <div className="home_sideNavbarTopOptionTitle" >Liked videos</div>
+                </div>
                 <div className={`home_sideNavbarTopOption }`}>
                     <ContentCutIcon />
                     <div className="home_sideNavbarTopOptionTitle">Your clips</div>

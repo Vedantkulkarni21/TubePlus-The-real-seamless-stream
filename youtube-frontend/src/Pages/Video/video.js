@@ -43,6 +43,7 @@ const Video = () => {
         }
         await axios.post('http://localhost:4000/commentApi/comment',body, { withCredentials: true }).then((resp)=>{
             console.log(resp)
+            //adding comments newer first
             const newComment = resp.data.comment;
             setComments([newComment,...comments]);
             setMessage("")
@@ -50,13 +51,18 @@ const Video = () => {
             toast.error("Please Login First to comment")
         })
     }
+
     return (
         <div className='video'>
             <div className="videoPostSection">
                 <div className="video_youtube">
                     {data && <video width="400" controls autoPlay className='video_youtube_video'>
 
-                        {/* Please watch the video for the code} */}
+                        {/* done */}
+                        <source src = {videoUrl} type= "video/mp4"/>
+                        <source src = {videoUrl} type= "video/mp4"/>
+                        
+                        Your browser doesnt support video tag
                     </video>}
 
                 </div>
@@ -77,10 +83,16 @@ const Video = () => {
                         </div>
 
                         <div className="youtube_video_likeBlock">
-                            {/* Please watch the video for the code} */}
+                            {/* done */}
+                            <div className="youtube_video_likeBlock_Like">
+                                <ThumbUpOutlinedIcon/>
+                                <div className="youtube_video_likeBlock_NoOfLikes">{data?.like}</div>
+                            </div>
+                            <div className="youtubeVideoDivider"></div>
 
-
-
+                            <div className="youtube_video_likeBlock_Like">
+                                <ThumbDownAltOutlinedIcon/>
+                            </div>
                         </div>
 
 
@@ -90,14 +102,21 @@ const Video = () => {
                         <div>{data?.createdAt.slice(0, 10)}</div>
                         <div>{data?.description}</div>
                     </div>
-                </div>
+                </div> 
 
                 <div className="youtubeCommentSection">
                     <div className="youtubeCommentSectionTitle">{comments.length} Comments</div>
 
                     <div className="youtubeSelfComment">
-                        {/* Please watch the video for the code} */}
-
+                        {/* done */}
+                        <img className="video_youtubeSelfCommentProfile" src="https://www.w3schools.com/html/img_chania.jpg"/>
+                        <div className="addAComment">
+                            <input type="text" value={message} onChange={(e)=>{setMessage(e.target.value)}} className="addAcommentInput" placeholder="Add a comment"/>
+                            <div className="cancelSubmitComment">
+                                <div className="cancelComment">Cancel</div>
+                                <div className="cancelComment" onClick={handleComment}>Comment</div>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="youtubeOthersComments">
@@ -107,9 +126,17 @@ const Video = () => {
                                 return (
                                     <div className="youtubeSelfComment">
                                         <img className='video_youtubeSelfCommentProfile' src={item?.user?.profilePic} />
-                                            {/* Please watch the video for the code} */}
+                                            {/*done */}
+                                            <div className="others_commentSection">
+                                                <div className="others_commentSectionHeader">
+                                                    <div className="channelName_comment">{item?.user?.channelName}</div>
+                                                    <div className="cgmmentTimingOthers">{item?.createdAt.slice(0,10)}</div>
+                                                </div>
 
-
+                                                <div className="otherCommentSectionComment">
+                                                    {item?.message}
+                                                </div>
+                                            </div>
                                     </div>
                                 );
                             })

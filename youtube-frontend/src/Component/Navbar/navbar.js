@@ -1,9 +1,12 @@
 import React, { useState,useEffect } from 'react'
 import './navbar.css';
+import myIcon2 from './myIcon2.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-import YouTubeIcon from '@mui/icons-material/YouTube';
+// import YouTubeIcon from '@mui/icons-material/YouTube';
+// import YouTubeIcon from '@mui/icons-material/OndemandVideo';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
@@ -55,7 +58,7 @@ const Navbar = ({setSideNavbarFunc,sideNavbar}) => {
       console.log(err)
     })
   }
-
+  //already loggedin user 
   useEffect(()=>{
     let userProfilePic = localStorage.getItem("userProfilePic");
     setIsLogedIn(localStorage.getItem("userId")!==null?true:false);
@@ -75,15 +78,20 @@ const Navbar = ({setSideNavbarFunc,sideNavbar}) => {
         </div>
 
         <Link to={'/'} className="navbar_youtubeImg">
-          <YouTubeIcon sx={{ fontSize: "34px" }} className='navbar_youtubeImage' />
-          <div className='navbar_utubeTitle'>YouTube</div>
+          {/* <OndemandVideoIcon sx={{ fontSize: "34px" }} className='navbar_youtubeImage' />
+          <div className='navbar_utubeTitle'>TubePlus</div> */}
+
+          <img src={myIcon2} alt="Custom Icon" className="navbar_youtubeImage" />
+          <div className='navbar_utubeTitle'>Tube+</div>
         </Link>
 
       </div>
 
       <div className="navbar-middle">
-        {/* Please watch the video for the code} */}
-
+        <div className='navbar_searchBox'>
+          <input type='text' placeholder='Search' className='navbar_searchBoxInput'/>
+          <div className='navbar_searchIconBox'><SearchIcon sx={{fontSize: "28px", color:"white"}}/></div> 
+        </div>
         <div className="navbar_mike">
           <KeyboardVoiceIcon sx={{ color: "white" }} />
         </div>
@@ -100,8 +108,9 @@ const Navbar = ({setSideNavbarFunc,sideNavbar}) => {
 
         { navbarModal &&
           <div className='navbar-modal'>
-            {/* Please watch the video for the code} */}
-
+            {isLogedIn && <div className='navbar-modal-option' onClick={handleprofile}> Profile</div>}
+            {isLogedIn && <div className='navbar-modal-option' onClick={()=>onclickOfPopUpOption("logout")}> Logout</div>}
+            {!isLogedIn && <div className='navbar-modal-option' onClick={()=>onclickOfPopUpOption("login")}> Login</div>}
           </div>
         }
 

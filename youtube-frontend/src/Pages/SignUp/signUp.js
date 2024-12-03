@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './signUp.css';
+import myIcon2 from './myIcon2.png';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -17,6 +18,7 @@ const SignUp = () => {
             ...singUpFiled, [name]: event.target.value
         })
     }
+
     console.log(singUpFiled)
 
     const uploadImage = async (e) => {
@@ -24,12 +26,12 @@ const SignUp = () => {
         const files = e.target.files;
         const data = new FormData();
         data.append('file', files[0]);
-        // youtube-clone
+        // TubePlus
         data.append('upload_preset', 'youtube-clone');
         try {
-            // cloudName="dhlklhfgj"
+            // cloudName="dywooeovw"
             setProgressBar(true)
-            const response = await axios.post("https://api.cloudinary.com/v1_1/dhlklhfgj/image/upload", data)
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dywooeovw/image/upload", data)
             setProgressBar(false)
             const imageUrl = response.data.url;
             setUploadedImageUrl(imageUrl);
@@ -43,23 +45,35 @@ const SignUp = () => {
 
     }
     const handleSignup = async () => {
-        {/* Please watch the video for the code} */}
+        {/* done */}
+        setProgressBar(true);
+        axios.post('http://localhost:4000/auth/signUp', singUpFiled).then((res) => {
+            toast.success(res.data.message)
+            setProgressBar(false)
+            navigate('/');
+        }).catch(err => {
+            setProgressBar(false)
+            toast.error(err)
+        })
     }
-
 
 
     return (
         <div className='signUp'>
             <div className="signup_card">
                 <div className="signUp_title">
-                    <YouTubeIcon sx={{ fontSize: "54px" }} className='login_youtubeImage' />
+                    {/* <YouTubeIcon sx={{ fontSize: "54px" }} className='login_youtubeImage' /> */}
+                    <img src={myIcon2} alt="img" style= {{width:'60px', height:'60px', padding:'10px'}}/>
                     SignUp
                 </div>
 
                 <div className="signUp_Inputs">
                     
-                    {/* Please watch the video for the code} */}
-
+                    {/* done */}
+                    <input type='text' className='signUp_Inputs_inp' value={singUpFiled.channelName} onChange={(e)=>{handleInputFiled(e,"channelName")}} placeholder='Channel Name' />
+                    <input type='text' className='signUp_Inputs_inp' value={singUpFiled.userName} onChange={(e)=>{handleInputFiled(e,"userName")}} placeholder='User Name' />
+                    <input type='password' className='signUp_Inputs_inp' value={singUpFiled.password} onChange={(e)=>{handleInputFiled(e,"password")}} placeholder='Password' />
+                    <input type='text' className='signUp_Inputs_inp'  value={singUpFiled.about} onChange={(e)=>{handleInputFiled(e,"about")}} placeholder='About Your Channel' />
 
                     <div className="image_upload_signup">
                         <input type='file' onChange={(e) => uploadImage(e)} />

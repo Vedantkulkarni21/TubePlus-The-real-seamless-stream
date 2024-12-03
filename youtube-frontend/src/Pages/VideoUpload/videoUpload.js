@@ -24,12 +24,17 @@ const VideoUpload = () => {
         // youtube-clone
         data.append('upload_preset', 'youtube-clone');
         try {
-            // cloudName="dhlklhfgj"
+            // cloudName="dywooeovw"
             
-            {/* Please watch the video for the code} */}
-
-
-
+            {/*done*/}
+            const response = await axios.post(`https://api.cloudinary.com/v1_1/dywooeovw/${type}/upload`,data)
+            const url = response.data.url;
+            
+            let val = type==="image"?"thumbnail":"videoLink";
+            setInputField({
+                ...inputField,[val] : url
+            })
+            setLoader(false)
 
         } catch (err) {
             setLoader(false)
@@ -38,20 +43,29 @@ const VideoUpload = () => {
 
 
     }
-    
+
     useEffect(()=>{
         let isLogin = localStorage.getItem("userId");
         if(isLogin===null){
             navigate('/')
         }
     },[])
-    console.log(inputField)
+
     const handleSubmitFunc = async()=>{
-        {/* Please watch the video for the code} */}
+        {/* done */}
+        setLoader(true)
+        await axios.post('http://localhost:4000/api/video',inputField,{withCredentials: true}).then((resp)=>{
+            console.log(resp);
+            setInputField(false);
+            navigate('/');
+        }).catch(err=>{
+            console.log(err);
+            setInputField(false);
+        })
 
     }
 
-    
+    console.log(inputField)
 
     return (
         <div className='videoUpload'>
@@ -62,8 +76,13 @@ const VideoUpload = () => {
                 </div>
 
                 <div className="uploadForm">
-                    {/* Please watch the video for the code} */}
-
+                    {/*done*/}
+                    <input type='text' value={inputField.title} onChange={(e)=>{handleOnChangeInput(e,"title")}} placeholder='Title of Video' className='uploadFormInputs' />
+                    <input type='text' value={inputField.description} onChange={(e)=>{handleOnChangeInput(e,"description")}} placeholder='Description' className='uploadFormInputs' />
+                    <input type='text' value={inputField.videoType} onChange={(e)=>{handleOnChangeInput(e,"videoType")}} placeholder='Category' className='uploadFormInputs' />
+                    <div>Thumbnail <input type='file' accept="image/*" onChange={(e)=>uploadImage(e, "image")} /></div>
+                    <div>Video <input type='file' accept="video/mp4, video/webm, video/*" onChange={(e)=>uploadImage(e, "video")} /></div>
+                                    
                     {
                     loader && <Box sx={{ display: 'flex' }}>
                                     <CircularProgress />

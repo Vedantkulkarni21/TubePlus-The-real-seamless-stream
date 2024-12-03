@@ -4,7 +4,10 @@
 .homeSideNavbarHide{
     display:none;
 }
-
+.hs{
+    text-decoration: none;
+    color: white;
+}
 .home-sideNavbar{
     display: flex;
     flex-direction: column;

@@ -14,7 +14,7 @@ const HomePage = ({ sideNavbar }) => {
     })
   }, [])
 
-  const options = ["All", "Twenty20 Cricket", "Music", "Live", "Mixes", "Gaming", "Debates", "Coke Studio Pakistan", "Democracy", "Pakistani dramas", "Comedy", "Pakistani dramas", "Comedy", "Pakistani dramas", "Comedy",];
+  const options = ["All", "Twenty20 Cricket", "Music", "Live", "Mixes", "Gaming", "Debates", "Coke Studio", "Democracy", "Dramas", "Comedy", "ram mandir", "Comedy", "Mahabharat", "Comedy",];
 
   return (
     <div className={sideNavbar ? 'homePage' : 'fullHomePage'}>
@@ -33,28 +33,31 @@ const HomePage = ({ sideNavbar }) => {
 
 
       <div className={sideNavbar ? "home_mainPage" : "home_mainPageWithoutLink"}>
-
+        
         {
-          data?.map((item, ind) => {
-            return (
+          data?.map((item,ind)=>{
+            return(
               <Link to={`/watch/${item._id}`} className="youtube_Video">
-
-                {/* Please watch the video for the code} */}
-
+                <div className="youtube_thumbnailBox">
+                  <img src={item.thumbnail} alt="thumbnail" className="youtube_thumbnailPic"/>
+                  <div className="youtube_timingThumbnail">28:05</div>
+                </div>
+                <div className="youtubeTitleBox">
+                  <div className="youtubeTitleBoxProfile">
+                    <img src = {item?.user?.profilePic} alt = "profilepic" className="youtube_thumbnail_Profile"/>
+                  </div>  
+                  <div className="youtubeTitleBox_Title">
+                    <div className="youtube_videoTitle">{item?.title}</div>
+                    <div className="youtube_channelName">{item?.user?.channelName}</div>
+                    <div className="youtubeVideo_views">3 likes</div>
+                  </div>
+                </div>  
               </Link>
             );
           })
         }
-
-
-
-
-
-
-
+        
       </div>
-
-
 
     </div>
   )
